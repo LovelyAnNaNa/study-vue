@@ -1,0 +1,2 @@
+让项目识别.vue文件
+npm install --save-dev vue-loader@15.4.2 vue-template-compiler@2.5.21

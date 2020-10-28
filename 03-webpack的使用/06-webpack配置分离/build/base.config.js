@@ -10,7 +10,7 @@ module.exports = {
     entry: "./src/main.js",
     output: {
         //打包的路径,绝对路径 __dirname是node全局变量,文件路径
-        path: path.resolve(__dirname, "dist"),
+        path: path.resolve(__dirname, "../dist"),
         filename: "bundle.js",
         //所有涉及url文件都会加上这个路径
         // publicPath: "dist/" (打包后index.html文件就在dist文件夹下,所以这个公共路径就多余了)
@@ -78,17 +78,9 @@ module.exports = {
     },
     //webpack插件
     plugins: [
-        new webpack.BannerPlugin("最终版权归AAA所有"),
         new htmlWebpackPlugin({
             //表示使用哪个页面生成首页
             template: 'index.html'
         }),
-        //压缩js
-        new uglifyJsPlugin()
     ],
-    //实时刷新代码
-    devServer:{
-        contentBase: "./dist",
-        inline: true
-    }
 }
