@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="cart">
+
+    <table id="cart-table" border="1">
+        <thead>
+        <tr>
+            <td></td>
+            <td>书籍名称</td>
+            <td>出版日期</td>
+            <td>价格</td>
+            <td>购买数量</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="book in books">
+            <td>{{book.id}}</td>
+            <td>{{book.name}}</td>
+            <td>{{book.date}}</td>
+            <td>{{book.price | showPrice}}</td>
+            <td>
+                <button @click="decrement(book)" :disabled="book.count <= 1">-</button>
+                {{book.count}}
+                <button @click="increment(book)">+</button>
+            </td>
+            <td>移除</td>
+        </tr>
+        </tbody>
+    </table>
+
+    当前购物车商品总价: {{totalPrice | showPrice}}
+    <select v-model="despatchType">
+        <option value="韵达">韵达</option>
+        <option value="中通">中通</option>
+        <option value="圆通">圆通</option>
+    </select>
+    选择的发货方式为: {{despatchType}}
+</div>
+
+</body>
+<script src="js/vue.js"></script>
+<script>
+    const cartTable = new Vue({
+        el: '#cart',
+        data: {
+            books: [
+                {id: 1, name: "算法导论", date: "2008-01", price: 85, count: 1},
+                {id: 2, name: "UNIX编程艺术", date: "2008-02", price: 59, count: 1},
+                {id: 3, name: "编程珠玑", date: "2008-03", price: 39, count: 1},
+                {id: 4, name: "代码大全", date: "2008-04", price: 128, count: 1}
+            ],
+            despatchType: "韵达"
+        },
+        methods: {
+            increment(book) {
+                book.count++;
+            },
+            decrement(book) {
+                book.count--;
+            }
+        },
+        computed: {
+            totalPrice() {
+                // let totalPride = 0.0;
+                // for (let book of this.books) {
+                //     totalPride += book.count * book.price;
+                // }
+                // return totalPride;
+                return this.books.reduce((preValue, curValue) => {
+                    return preValue + curValue.price * curValue.count;
+                },0)
+            }
+        },
+        filters: {
+            showPrice(price) {
+                return "¥" + price.toFixed(2);
+            }
+        }
+    });
+</script>
+</html>

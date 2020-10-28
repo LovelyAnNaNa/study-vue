@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+    <!--  子组件(cpn)发射一个事件后绑定父组件(app)的一个方法  -->
+    <cpn @cpn-click="cpnClick"></cpn>
+</div>
+
+<template id="cpn">
+    <div>
+        <button v-for="category in categoryList" @click="cpnClick(category)">
+            {{category}}
+        </button>
+    </div>
+</template>
+
+</body>
+<script src="js/vue.js"></script>
+<script>
+    const cpn = {
+        template: "#cpn",
+        data(){
+            return{
+                categoryList: ["苹果","香蕉","柿子"]
+            }
+        },
+        methods:{
+            cpnClick(item){
+                //发射一个事件让父组件接收(驼峰不识别
+                this.$emit("cpn-click",item);
+            }
+        }
+    }
+
+    const app = new Vue({
+        el: "#app",
+        components:{
+            cpn
+        },
+        methods:{
+            cpnClick(item){
+                console.log(item);
+            }
+        }
+    })
+</script>
+</html>

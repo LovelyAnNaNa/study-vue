@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <style>
+        .importance {
+            color: red;
+        }
+
+        .generic {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <h2 @click="changeTextStatus()" :class="{'importance':isClicked,'generic': !isClicked}">{{message}}</h2>
+    <img :src="imageUrl">
+    <h2 :style="{fontSize: '30px'}">当前计数: {{count}}</h2>
+    <button @click="add()">+</button>
+    <button @click="reduce()">-</button>
+    <ul>
+        <li v-for="(fruits,index) in fruitsList" :class="{'importance': index == fruitsIndex}" @click="aa(index)">
+            {{fruits}}
+        </li>
+    </ul>
+</div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: "一段无意义的文本",
+            isClicked: false,
+            count: 0,
+            fruitsList: ["苹果", "香蕉", "梨"],
+            fruitsIndex: -1,
+            imageUrl: "http://121.42.231.149:5000/avatars/2"
+        },
+        methods: {
+
+            aa(e) {
+                this.fruitsIndex = e;
+            },
+            changeTextStatus() {
+                this.isClicked = !this.isClicked;
+            },
+            add() {
+                this.count++;
+            },
+            reduce() {
+                this.count--;
+            }
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+    <h2 style="color: red">{{num1}}</h2>
+    <!--  父组件的属性值传给props,所以父组件的属性值改变时,props中的属性值也会改变  -->
+    <cpn :number1="num1" :number2="num2" @update-num1="updateNum1" @update-num2="updateNum2"/>
+</div>
+
+<template id="cpn">
+    <div>
+        <h2>{{number1}}</h2>
+        <h2>{{dNumber1}}</h2>
+        <input type="number" v-model="dNumber1" @input="num1Input">
+        <h2>{{number2}}</h2>
+        <h2>{{dNumber2}}</h2>
+        <input type="number" v-model="dNumber2" @input="num2Input">
+    </div>
+</template>
+
+</body>
+<script src="js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            num1: 0,
+            num2: 0
+        },
+        components: {
+            cpn: {
+                template: "#cpn",
+                props: {
+                    number1: Number,
+                    number2: Number
+                },
+                data() {
+                    return {
+                        dNumber1: this.number1,
+                        dNumber2: this.number2
+                    }
+                },
+                methods: {
+                    num1Input(event) {
+                        let num1 = event.target.value;
+                        this.$emit("update-num1", num1);
+
+                        let num2 = num1 * 100;
+                        //发射属性只会修改组件中props中得属性,不会影响data
+                        this.dNumber2 = num2;
+                        this.$emit("update-num2",num2);
+                    },
+                    num2Input(event){
+                        let num2 = event.target.value;
+                        this.$emit("update-num2",event.target.value);
+
+                        let num1 = num2 / 100;
+                        this.dNumber1 = num1;
+                        this.$emit("update-num1",num1);
+                    }
+                }
+            }
+        },
+        methods: {
+            updateNum1(newValue) {
+                this.num1 = parseFloat(newValue);
+            },
+            updateNum2(newvalue){
+                this.num2 = parseFloat(newvalue);
+            }
+        }
+    })
+</script>
+</html>

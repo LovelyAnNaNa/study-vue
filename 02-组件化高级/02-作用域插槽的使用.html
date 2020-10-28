@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+    <cpn></cpn>
+    <br><br><br><br><br>
+    <cpn>
+        <!--  获取插槽并将插槽命名为cpnSlot1方便调用属性 -->
+        <template slot-scope="cpnSlot1" slot="slot1">
+            <span>{{cpnSlot1.data.join('-') }}</span>
+        </template>
+    </cpn>
+</div>
+
+<template id="cpn">
+    <div>
+        <!--   给插槽设置一个和属性名为data,并赋值为wordList,方便父组件调用     -->
+        <slot :data="wordList" name="slot1">
+            <ul>
+                <li v-for="word in wordList">{{word}}</li>
+            </ul>
+        </slot>
+        <br>
+        <slot name="slot2">备用插槽</slot>
+    </div>
+</template>
+
+</body>
+
+<script src="js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        components: {
+            cpn: {
+                template: "#cpn",
+                data() {
+                    return {
+                        wordList: ["java", "js", "C++", "Python"]
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+</html>

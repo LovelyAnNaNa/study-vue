@@ -1,0 +1,27 @@
+*.a                    # 所有以 '.a' 为后缀的文件都屏蔽掉
+# Office 缓存文件
+~'$'*.docx
+~'$'*.ppt
+~'$'*.pptx 
+~'$'*.xls
+
+#安装node依赖生成的文件  带 / 结尾屏蔽子目录,不带屏幕根目录下的
+package-lock.json
+package-lock.json/
+tags                   # 仓库中所有名为 tags 的文件都屏蔽
+core.*                 # 仓库中所有以 'core.' 开头的文件都屏蔽
+ 
+#编辑器依赖
+.idea               
+.idea/  
+#屏蔽node依赖
+node_modules/         
+node_modules
+
+tools/                # 屏蔽目录 tools
+log/*                  # 屏蔽目录 log 下的所有文件，但不屏蔽 log 目录本身
+
+package-lock.json     #安装node依赖生成的文件
+/log.log               # 只屏蔽仓库根目录下的 log.log 文件，其他目录中的不屏蔽
+readme.md       # 屏蔽仓库中所有名为 readme.md 的文件
+!/readme.md     # 在上一条屏蔽规则的条件下，不屏蔽仓库根目录下的 readme.md 文件

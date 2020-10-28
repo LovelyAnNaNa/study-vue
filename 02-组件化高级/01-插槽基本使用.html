@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+    <!--  传递的标签如果有指定插槽,替换指定插槽,没有替换没有name属性的插槽  -->
+    <cpn></cpn>
+    <cpn><span>span标签</span></cpn>
+    <cpn><p slot="last">p标签</p></cpn>
+</div>
+
+<template id="cpn">
+    <div>
+        <h2>111</h2>
+        <h2>222</h2>
+        <!-- 插槽,如果有传递过来的元素显示传递过来的元素,没有显示默认插槽中的元素 -->
+        <slot>
+            <button>按钮</button>
+        </slot>
+        <slot name="last"><span>这是最后一个插槽</span></slot>
+    </div>
+</template>
+
+</body>
+<script src="js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        components: {
+            cpn: {
+                template: "#cpn"
+            }
+        }
+    });
+</script>
+</html>
