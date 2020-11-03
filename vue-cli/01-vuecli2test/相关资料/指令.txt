@@ -1,0 +1,6 @@
+全局安装vue-cli
+npm install -g @vue/cli
+拉取2.x模板
+npm install -g @vue/cli-init
+2.x生成脚手架
+vue init webpack vuecli2test
